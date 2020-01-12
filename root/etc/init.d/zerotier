@@ -27,52 +27,6 @@ start_instance() {
 	[ -d /etc/config/zero ] || mkdir -p /etc/config/zero
 	config_path=/etc/config/zero
 	
-    if [ -z "$(uci get network.zerotier)" ];  then
-		uci set network.zerotier=interface
-		uci set network.zerotier.proto='static'
-	fi
-	if [ "$nat" == "1" ];  then
-		if [ -z "$(uci get firewall.ztzone)" ];  then
-			uci set firewall.ztzone=zone
-			uci set firewall.ztzone.input='ACCEPT'
-			uci set firewall.ztzone.output='ACCEPT'
-			uci set firewall.ztzone.forward='REJECT'
-			uci set firewall.ztzone.masq='1'
-			uci set firewall.ztzone.name='zerotier'
-			uci set firewall.ztzone.network='zerotier'
-		fi
-	else
-		uci delete firewall.ztzone
-	fi
-	if [ "${access//ztfwlan/}" != "$access" ]; then
-		uci set firewall.ztfwlan=forwarding
-		uci set firewall.ztfwlan.dest='lan'
-		uci set firewall.ztfwlan.src='zerotier'
-	else
-		uci delete firewall.ztfwlan
-	fi
-	if [ "${access//ztfwwan/}" != "$access" ]; then
-		uci set firewall.ztfwwan=forwarding
-		uci set firewall.ztfwwan.dest='wan'
-		uci set firewall.ztfwwan.src='zerotier'
-	else
-		uci delete firewall.ztfwwan
-	fi
-	if [ "${access//lanfwzt/}" != "$access" ]; then
-		uci set firewall.lanfwzt=forwarding
-		uci set firewall.lanfwzt.dest='zerotier'
-		uci set firewall.lanfwzt.src='lan'
-	else
-		uci delete firewall.lanfwzt
-	fi
-	if [ "${access//wanfwzt/}" != "$access" ]; then
-		uci set firewall.wanfwzt=forwarding
-		uci set firewall.wanfwzt.dest='zerotier'
-		uci set firewall.wanfwzt.src='wan'
-	else
-		uci delete firewall.wanfwzt
-	fi
-  
 	config_get_bool port $cfg 'port'
 	config_get secret $cfg 'secret'
 
@@ -127,15 +81,63 @@ start_instance() {
 	procd_set_param stderr 1
 	procd_close_instance
 	(
+		[ -f "/var/run/zerotier.wait.pid" ] && return
+		touch /var/run/zerotier.wait.pid
 		while [ "$(ifconfig | grep zt | awk '{print $1}')" = "" ]  
 		do 
 		   sleep 1
 		done
 		zt0=$(ifconfig | grep zt | awk '{print $1}')
 		echo "zt interface $zt0 is started!"
+		if [ -z "$(uci get network.zerotier)" ];  then
+			uci set network.zerotier=interface
+			uci set network.zerotier.proto='static'
+		fi
+		if [ "$nat" == "1" ];  then
+			if [ -z "$(uci get firewall.ztzone)" ];  then
+				uci set firewall.ztzone=zone
+				uci set firewall.ztzone.input='ACCEPT'
+				uci set firewall.ztzone.output='ACCEPT'
+				uci set firewall.ztzone.forward='REJECT'
+				uci set firewall.ztzone.masq='1'
+				uci set firewall.ztzone.name='zerotier'
+				uci set firewall.ztzone.network='zerotier'
+			fi
+		else
+			uci delete firewall.ztzone
+		fi
+		if [ "${access//ztfwlan/}" != "$access" ]; then
+			uci set firewall.ztfwlan=forwarding
+			uci set firewall.ztfwlan.dest='lan'
+			uci set firewall.ztfwlan.src='zerotier'
+		else
+			uci delete firewall.ztfwlan
+		fi
+		if [ "${access//ztfwwan/}" != "$access" ]; then
+			uci set firewall.ztfwwan=forwarding
+			uci set firewall.ztfwwan.dest='wan'
+			uci set firewall.ztfwwan.src='zerotier'
+		else
+			uci delete firewall.ztfwwan
+		fi
+		if [ "${access//lanfwzt/}" != "$access" ]; then
+			uci set firewall.lanfwzt=forwarding
+			uci set firewall.lanfwzt.dest='zerotier'
+			uci set firewall.lanfwzt.src='lan'
+		else
+			uci delete firewall.lanfwzt
+		fi
+		if [ "${access//wanfwzt/}" != "$access" ]; then
+			uci set firewall.wanfwzt=forwarding
+			uci set firewall.wanfwzt.dest='zerotier'
+			uci set firewall.wanfwzt.src='wan'
+		else
+			uci delete firewall.wanfwzt
+		fi
 		uci set network.zerotier.ifname="$zt0"
 		[ -n "$(uci changes network)" ] && uci commit network && /etc/init.d/network reload
 		[ -n "$(uci changes firewall)" ] && uci commit firewall && /etc/init.d/firewall reload
+		rm /var/run/zerotier.wait.pid
 	) &
 }
 
