@@ -20,3 +20,6 @@ msgstr "点击跳转到Zerotier官网管理平台，新建或者管理网络，�
 
 msgid "Interface Info"
 msgstr "接口信息"
+
+msgid "Zerotier access control"
+msgstr "Zerotier 准入控制"

@@ -17,7 +17,15 @@ e.rmempty=false
 e=t:option(Flag,"nat",translate("Auto NAT Clients"))
 e.default=0
 e.rmempty=false
-e.description = translate("Allow zerotier clients access your LAN network")
+
+e = t:option(MultiValue, "access", translate("Zerotier access control"))
+e.default="lanfwzt ztfwwan ztfwlan"
+e.rmempty=false
+e:value("lanfwzt",translate("lan access zerotier"))
+e:value("wanfwzt",translate("wan access zerotier"))
+e:value("ztfwwan",translate("remote access wan"))
+e:value("ztfwlan",translate("remote access lan"))
+e.widget = "checkbox"
 
 e=t:option(DummyValue,"opennewwindow" , 
 	translate("<input type=\"button\" class=\"cbi-button cbi-button-apply\" value=\"Zerotier.com\" onclick=\"window.open('https://my.zerotier.com/network')\" />"))
