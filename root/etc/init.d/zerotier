@@ -11,7 +11,9 @@ section_enabled() {
 	config_get_bool enabled "$1" 'enabled' 0
 	[ $enabled -gt 0 ]
 }
-
+service_triggers() {
+	procd_add_reload_trigger zerotier
+}
 start_instance() {
 	local cfg="$1"
 	local port secret config_path
@@ -27,11 +29,9 @@ start_instance() {
 	
     if [ -z "$(uci get network.zerotier)" ];  then
 		uci set network.zerotier=interface
-		uci set network.zerotier.ifname='zerotier'
-		uci set network.zerotier._orig_bridge='false'
 		uci set network.zerotier.proto='static'
 	fi
-	if [ "$(nat)" == "1" ];  then
+	if [ "$nat" == "1" ];  then
 		if [ -z "$(uci get firewall.ztzone)" ];  then
 			uci set firewall.ztzone=zone
 			uci set firewall.ztzone.input='ACCEPT'
@@ -133,9 +133,9 @@ start_instance() {
 		done
 		zt0=$(ifconfig | grep zt | awk '{print $1}')
 		echo "zt interface $zt0 is started!"
-		uci set network.zerotier._orig_ifname="$zt0"
-		[ -n $(uci changes network) ] && /etc/init.d/network reload
-		[ -n $(uci changes firewall) ] && /etc/init.d/firewall reload
+		uci set network.zerotier.ifname="$zt0"
+		[ -n "$(uci changes network)" ] && uci commit network && /etc/init.d/network reload
+		[ -n "$(uci changes firewall)" ] && uci commit firewall && /etc/init.d/firewall reload
 	) &
 }
 
