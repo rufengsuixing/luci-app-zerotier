@@ -93,6 +93,7 @@ start_instance() {
 			uci set network.zerotier=interface
 			uci set network.zerotier.proto='static'
 		fi
+		config_get nat $cfg 'nat'
 		if [ "$nat" == "1" ];  then
 			if [ -z "$(uci get firewall.ztzone)" ];  then
 				uci set firewall.ztzone=zone
@@ -106,6 +107,7 @@ start_instance() {
 		else
 			uci delete firewall.ztzone
 		fi
+		config_get access $cfg 'access'
 		if [ "${access//ztfwlan/}" != "$access" ]; then
 			uci set firewall.ztfwlan=forwarding
 			uci set firewall.ztfwlan.dest='lan'
