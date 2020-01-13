@@ -23,3 +23,6 @@ msgstr "接口信息"
 
 msgid "Zerotier access control"
 msgstr "Zerotier 准入控制"
+
+msgid "Manual Config"
+msgstr "手动设置"
