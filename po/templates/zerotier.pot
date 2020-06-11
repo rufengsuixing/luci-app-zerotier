@@ -1,0 +1,79 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:31
+msgid ""
+"<input type=\"button\" class=\"cbi-button cbi-button-apply\" value="
+"\"Zerotier.com\" onclick=\"window.open('https://my.zerotier.com/network')\" /"
+">"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:17
+msgid "Auto NAT Clients"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:12
+msgid "Base Setting"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm:20
+msgid "Collecting data..."
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:32
+msgid ""
+"Create or manage your zerotier network, and auth clients who could access"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:9
+msgid "Enable"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:13
+msgid "Interface Info"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:14
+msgid "Manual Config"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm:10
+msgid "NOT RUNNING"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm:7
+msgid "RUNNING"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:10
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:2
+msgid "ZeroTier"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:13
+msgid "ZeroTier Network ID"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:21
+msgid "Zerotier access control"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:2
+msgid "Zerotier is an open source, cross-platform and easy to use virtual LAN"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:24
+msgid "lan access zerotier"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:27
+msgid "remote access lan"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:26
+msgid "remote access wan"
+msgstr ""
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:25
+msgid "wan access zerotier"
+msgstr ""
