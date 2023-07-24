@@ -1,8 +1,8 @@
 local o = require "luci.sys"
 local a, t, e
-a = Map("zerotier", translate("ZeroTier")
-a.description = translate("Zerotier is an open source, cross-platform and easy to use virtual LAN."))
-a:template = "zerotier/index"
+a = Map("zerotier", translate("ZeroTier"))
+a.description = translate("Zerotier is an open source, cross-platform and easy to use virtual LAN.")
+a.template = "zerotier/index"
 
 t = a:section(NamedSection, "sample_config", "zerotier")
 t.anonymous = true
