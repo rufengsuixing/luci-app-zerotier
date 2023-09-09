@@ -26,3 +26,6 @@ msgstr "Zerotier 准入控制"
 
 msgid "Manual Config"
 msgstr "手动设置"
+
+msgid "Base Setting"
+msgstr "基本设置"
