@@ -8,7 +8,7 @@ function index()
   entry({"admin", "vpn", "zerotier"}, alias("admin", "vpn", "zerotier", "settings"), _("ZeroTier"), 99)
   entry({"admin", "vpn", "zerotier", "settings"},cbi("zerotier/settings"), _("Base Setting"), 1)
   entry({"admin", "vpn", "zerotier", "info"},form("zerotier/info"), _("Interface Info"), 2)
-  entry({"admin", "vpn","zerotier","status"},call("act_status"))
+  entry({"admin", "vpn", "zerotier", "status"},call("act_status"))
 end
 
 function act_status()
